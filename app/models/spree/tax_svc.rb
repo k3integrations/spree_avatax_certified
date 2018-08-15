@@ -36,8 +36,8 @@ class TaxSvc
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      http.open_timeout = 1
-      http.read_timeout = 1
+      http.open_timeout = 60
+      http.read_timeout = 60
 
       res = http.get(uri.request_uri, 'Authorization' => credential, 'Content-Type' => 'application/json')
       JSON.parse(res.body)
@@ -58,8 +58,8 @@ class TaxSvc
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      http.open_timeout = 1
-      http.read_timeout = 1
+      http.open_timeout = 60
+      http.read_timeout = 60
       request = http.get(uri.request_uri, 'Authorization' => credential)
     rescue => e
       logger.error(e)
@@ -119,8 +119,8 @@ class TaxSvc
 
   def request(uri, request_hash)
     res = RestClient::Request.execute(method: :post,
-                                timeout: 1,
-                                open_timeout: 1,
+                                timeout: 60,
+                                open_timeout: 60,
                                 url: service_url + uri,
                                 payload:  JSON.generate(request_hash),
                                 headers: {
